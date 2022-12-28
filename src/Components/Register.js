@@ -29,7 +29,7 @@ function Register() {
             mobile,
             college,
             city,
-            Attendence: ""
+            attendance: ""
         }
         setName("");
         setMail("");
