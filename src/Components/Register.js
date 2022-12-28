@@ -41,9 +41,16 @@ function Register() {
         setData();
         navigate("/table")
     }
+
+    const goToAttendance = () => {
+        navigate("/table");
+      };
     return (
         <div className='register-container'>
             <h1 className='resiter-form-head'>Registration Form</h1>
+            <div className='register-btn-div'>
+                <button className='register-div-btn' onClick={goToAttendance}>Attendance</button>
+            </div>
             <form onSubmit={handleSubmit} className='register-form'>
                 <div className='register-form-div'>
                     <label className='register-form-label'>Name:</label>
@@ -65,7 +72,7 @@ function Register() {
                     <label className='register-form-label'>City:</label>
                     <input type='text' className='register-form-input' value={city} onChange={(e) => setCity(e.target.value)} />
                 </div>
-                <div className='register-form-div'>
+                <div className='register-form-btn-div'>
                     <button className='register-form-btn'>Submit</button>
                 </div>
             </form>

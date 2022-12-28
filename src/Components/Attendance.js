@@ -17,7 +17,7 @@ function Attendance() {
 
 
   const addNewItem = () => {
-    navigate("/register");
+    navigate("/");
   };
 
   const updateAttendance = (id, value) => {
@@ -68,8 +68,8 @@ function Attendance() {
                     <td>{entry.mail}</td>
                     <td>{entry.mobile}</td>
                     <td>{entry.college} </td>
-                    <td>{entry.city}</td>
-                    <td>{entry.attendance === "Joined" ? (<p>Joined</p>) : (<button value={click} onClick={() => updateAttendance(entry.id, "Joined")}>Present</button>)}</td>
+                    <td width='10%'>{entry.city}</td>
+                    <td>{entry.attendance === "Joined" ? (<p style={{color: "green"}}>Joined</p>) : (<button className='present-btn' value={click} onClick={() => updateAttendance(entry.id, "Joined")}>Present</button>)}</td>
                   </tr>
               ))
           }

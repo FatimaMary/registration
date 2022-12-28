@@ -1,12 +1,32 @@
+.App {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+
 .register-container {
   display: flex;
   flex-direction: column;
+  background: pink;
 }
 
 .resiter-form-head{
   text-align: center;
 }
 
+.register-btn-div, .attendance-table-div{
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px ;
+}
+
+.register-div-btn, .attendance-btn{
+  padding: 10px;
+  border-radius: 10px;
+  background: aquamarine;
+  font-size: 1rem;
+  font-weight: bold;
+}
 .register-form{
   margin: 0 20%;
   display: flex;
@@ -34,6 +54,21 @@
   padding: 10px;
   border-radius: 10px;
   outline: none;
+}
+
+.register-form-btn-div{
+  display: flex;
+  justify-content: center;
+}
+
+.register-form-btn{
+  padding: 10px;
+  border-radius: 10px;
+  background-color: aquamarine;
+  width: 150px;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
 .attendance-table {
@@ -69,4 +104,14 @@ tr td:first-child:before
 {
 counter-increment: Serial;      /* Increment the Serial counter */
 content: counter(Serial); /* Display the counter */
+}
+
+.present-btn{
+  padding: 10px;
+  border-radius: 10px;
+  background: pink;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  letter-spacing: 1px;
 }
