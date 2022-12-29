@@ -71,6 +71,10 @@
   letter-spacing: 1px;
 }
 
+.error {
+  color: red;
+}
+
 .attendance-table {
   border-collapse: collapse;
   border-spacing: 0;
