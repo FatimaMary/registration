@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -25,8 +26,20 @@ function Register() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setErrors(Validation(data));
-        setDataIsCorrect(true);
+        axios
+            .post("http://localhost:2318/", {
+                name: name,
+                mail: mail,
+                mobile: mobile,
+                college: college,
+                city: city,
+            })
+            .then((response) => {
+                console.log(response);
+                navigate("/table")
+            })
+        // setErrors(Validation(data));
+        // setDataIsCorrect(true);
         let newEntry = {
             id: uuidv4(),
             name,
@@ -43,17 +56,17 @@ function Register() {
         setCity("");
         
 
-        localStorage.setItem("RegisterValues", JSON.stringify([...data, newEntry]));
-        setData();
+        // localStorage.setItem("RegisterValues", JSON.stringify([...data, newEntry]));
+        // setData();
         // navigate("/table")
     }
 
-    useEffect(() => {
-        if(Object.keys(errors).length === 0 && dataIsCorrect){
-            console.log("submitted");
-            navigate("/table");
-        }
-    }, [errors])
+    // useEffect(() => {
+    //     if(Object.keys(errors).length === 0 && dataIsCorrect){
+    //         console.log("submitted");
+    //         navigate("/table");
+    //     }
+    // }, [errors])
 
     const goToAttendance = () => {
         navigate("/table");

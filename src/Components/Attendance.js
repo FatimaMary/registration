@@ -1,29 +1,38 @@
-import React, { useState } from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
-const getValuesFromStorage = () => {
-  const entry = localStorage.getItem("RegisterValues")
-  if(entry) {
-      return JSON.parse(entry);
-  } else {
-      return [];
-  }
-}
-
 function Attendance() {
-  const [data, setData] = useState(getValuesFromStorage());
+  const [data, setData] = useState([]);
   const [click, setClick] = useState("");
   const navigate = useNavigate();
 
-
+  const fetchAllRegistration = () => {
+    axios.get("http://localhost:2318/").then((response) => {
+      console.log(response.data);
+      setUpdatedRegistration(response.data);
+    });
+  };
   const addNewItem = () => {
     navigate("/");
   };
 
-  const updateAttendance = (id, value) => {
-    const updatedArray = data.map((singleValue) => {
-      console.log(id, singleValue.id);
-      if (singleValue.id === id) {
+  const updateAttendance = (registrationToUpdate, value) => {
+    axios.put("http://localhost:2318/", {
+      id: parseInt(registrationToUpdate.id),
+      name: registrationToUpdate.name,
+      mobile: registrationToUpdate.mobile,
+      mail: registrationToUpdate.mail,
+      college: registrationToUpdate.college,
+      city: registrationToUpdate.city,
+      attendance: value
+    })
+    .then((response) => {
+      fetchAllRegistration();
+    });
+  }
+  const setUpdatedRegistration = (responseData) => {
+    const registrationList = responseData.map((singleValue) => {
         return {
           id: singleValue.id,
           name: singleValue.name,
@@ -31,16 +40,17 @@ function Attendance() {
           mobile: singleValue.mobile,
           college: singleValue.college,
           city: singleValue.city,
-          attendance: value,
+          attendance: singleValue.attendance,
         };
-      } else {
-        return singleValue;
-      }
-    });
-    console.log(updatedArray);
-    setData(updatedArray);
-    localStorage.setItem("RegisterValues", JSON.stringify(updatedArray));
-  };
+        });
+        setData(registrationList);
+      };
+
+      useEffect(() => {
+        fetchAllRegistration();
+      }, []);
+
+
   return (
     <div className='attendance-container'>
       <h1 className='attendance-head'>Attendence Sheet</h1>
@@ -69,7 +79,7 @@ function Attendance() {
                     <td>{entry.mobile}</td>
                     <td>{entry.college} </td>
                     <td width='10%'>{entry.city}</td>
-                    <td>{entry.attendance === "Joined" ? (<p style={{color: "green"}}>Joined</p>) : (<button className='present-btn' value={click} onClick={() => updateAttendance(entry.id, "Joined")}>Present</button>)}</td>
+                    <td>{entry.attendance === "Joined" ? (<p style={{color: "green"}}>Joined</p>) : (<button className='present-btn' value={click} onClick={() => updateAttendance(entry, "Joined")}>Present</button>)}</td>
                   </tr>
               ))
           }
